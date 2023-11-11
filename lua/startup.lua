@@ -42,16 +42,8 @@ M.setup = function()
 
     if open_file ~= "" then
         vim.cmd("edit " .. open_file)
-        -- restore position, from: https://github.com/neovim/neovim/issues/16339#issuecomment-1792179388
-        local line = vim.fn.line("'\"")
-        if
-            line > 1
-            and line <= vim.fn.line("$")
-            and vim.bo.filetype ~= "commit"
-            and vim.fn.index({ "xxd", "gitrebase" }, vim.bo.filetype) == -1
-        then
-            vim.cmd('normal! g`"')
-        end
+        -- restore position
+        vim.cmd('normal! g`"')
         -- open tree
         vim.cmd("NeoTreeShow")
         vim.cmd("bp")
