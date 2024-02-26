@@ -7,7 +7,11 @@ local function recent()
     vim.cmd("rshada")
     for _, file in ipairs(vim.v.oldfiles) do
         -- most recent file
-        if string.sub(file, 1, string.len(current_dir)) == current_dir and not string.find(file, "%[") then
+        if
+            string.sub(file, 1, string.len(current_dir)) == current_dir -- current dir
+            and not string.find(file, "%[") -- must be file can be open with
+            and vim.fn.findfile(file) ~= "" -- still exist
+        then
             return file
         end
     end
